@@ -1,0 +1,37 @@
+services:
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
+    volumes:
+      - /data/db
+      - /data/configdb
+
+  server:
+    build: 
+      context: server
+      target: dev
+    volumes:
+      - ./server:/go/src/app
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongo
+    env_file:
+      - server/.env
+
+  web-front:
+    build:
+      context: web-front
+      target: dev
+    volumes:
+      - ./web-front:/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - server
+    env_file:
+      - web-front/.env
