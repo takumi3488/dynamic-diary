@@ -12,20 +12,16 @@ import (
 	"github.com/takumi3488/dynamic-diary/server/graph/model"
 )
 
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
+func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (*model.User, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
 func (r *queryResolver) User(ctx context.Context) (*model.User, error) {
-	user := &model.User{UID: "test"}
 	uid, ok := auth.ForContext(ctx)
-	if ok {
-		user.UID = uid
+	if !ok {
+		return nil, authenticationError()
 	}
+	user := &model.User{ID: uid, Name: ""}
 	return user, nil
 }
 

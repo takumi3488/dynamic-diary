@@ -1,28 +1,74 @@
-# GraphQL schema example
-#
-# https://gqlgen.com/getting-started/
-
-type Todo {
-  id: ID!
-  text: String!
-  done: Boolean!
-  user: User!
+type User {
+  id: String!
+  name: String!
+  posts: [Post]!
+  comments: [Comment]!
+  post_favorites: [PostFavorite]!
+  comment_favorites: [CommentFavorite]!
+  favorite_posts: [Post]!
+  favorite_comments: [Comment]!
 }
 
-type User {
-  uid: String!
+type Post {
+  id: String!
+  user_id: String!
+  user: User!
+  title: String!
+  is_draft: Boolean!
+  contents: [Content]!
+  comments: [Comment]!
+  favorite_users: [User]!
+}
+
+type PostFavorite {
+  id: String!
+  user_id: String!
+  user: User!
+  post_id: String!
+  post: Post
+}
+
+type Content {
+  id: String!
+  post_id: String!
+  post: [Post]!
+  effect_id: String!
+  effect: Effect!
+  title: String!
+  body: String!
+}
+
+type Effect {
+  id: String!
+  name: String!
+}
+
+type Comment {
+  id: String!
+  user_id: String!
+  user: User!
+  post_id: String!
+  post: Post!
+  body: String!
+}
+
+type CommentFavorite {
+  id: String!
+  user_id: String!
+  user: User
+  comment_id: String!
+  comment: Comment
 }
 
 type Query {
-  todos: [Todo!]!
   user: User!
 }
 
-input NewTodo {
-  text: String!
-  userId: String!
+input NewUser {
+  uid: String!
+  name: String!
 }
 
 type Mutation {
-  createTodo(input: NewTodo!): Todo!
+  createUser(input: NewUser!): User!
 }
