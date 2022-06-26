@@ -7,7 +7,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/takumi3488/dynamic-diary/server/auth"
+	"github.com/takumi3488/dynamic-diary/server/domain"
 	"github.com/takumi3488/dynamic-diary/server/graph/generated"
 	"github.com/takumi3488/dynamic-diary/server/graph/model"
 )
@@ -17,12 +17,7 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) 
 }
 
 func (r *queryResolver) User(ctx context.Context) (*model.User, error) {
-	uid, ok := auth.ForContext(ctx)
-	if !ok {
-		return nil, authenticationError()
-	}
-	user := &model.User{ID: uid, Name: ""}
-	return user, nil
+	return domain.FindUserByContext(ctx)
 }
 
 // Mutation returns generated.MutationResolver implementation.
