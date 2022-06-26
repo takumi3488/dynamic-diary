@@ -13,7 +13,8 @@ const Home: NextPage = () => {
     user: { uid: string };
   }>(`query User {
   user {
-    uid
+    id
+    name
   }
 }`,[loading]);
   useEffect(() => {
