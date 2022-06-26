@@ -30,6 +30,10 @@ func GetClient(ctx context.Context) *auth.Client {
 
 // UIDの取得
 func GetUID(ctx context.Context, idToken string) (string, error) {
+	uid, ok := ForContext(ctx)
+	if ok {
+		return uid, nil
+	}
 	token, err := GetClient(ctx).VerifyIDToken(ctx, idToken)
 	if err != nil {
 		return "", err
@@ -42,6 +46,10 @@ var uidCtxtKey = &contextKey{"uid"}
 
 type contextKey struct {
 	name string
+}
+
+func SetUidCtxForTesting() context.Context {
+	return context.WithValue(context.Background(), uidCtxtKey, os.Getenv("FIREBSE_TEST_UID"))
 }
 
 // AuthorizationヘッダーにidTokenが含まれていればUIDをcontextに追加する
