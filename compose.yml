@@ -35,3 +35,12 @@ services:
       - server
     env_file:
       - web-front/.env
+
+  playwright:
+    build: playwright
+    volumes:
+      - ./playwright:/app
+    depends_on:
+      - web-front
+    env_file:
+      - playwright/.env

@@ -7,16 +7,19 @@ import { useQueryState } from "../hooks/useQueryState";
 import { auth } from "../utils/firebase/firebase";
 
 const Home: NextPage = () => {
-  const [user,loading] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const [signInWithGoogle] = useSignInWithGoogle(auth);
   const { data } = useQueryState<{
     user: { uid: string };
-  }>(`query User {
+  }>(
+    `query User {
   user {
     id
     name
   }
-}`,[loading]);
+}`,
+    [loading]
+  );
   useEffect(() => {
     console.table(data);
     console.table(auth.currentUser);
@@ -33,17 +36,22 @@ const Home: NextPage = () => {
         <p>{}</p>
       </header>
       <main>
-        <p></p>
-        <button
-          onClick={() =>
-            signInWithGoogle([
-              "https://www.googleapis.com/auth/contacts.readonly",
-            ])
-          }
-        >
-          ログイン
-        </button>
-        <button onClick={() => signOut(auth)}>ログアウト</button>
+        {user ? (
+          <button onClick={() => signOut(auth)} id="logout">
+            ログアウト
+          </button>
+        ) : (
+          <button
+            onClick={() =>
+              signInWithGoogle([
+                "https://www.googleapis.com/auth/contacts.readonly",
+              ])
+            }
+            id="login"
+          >
+            ログイン
+          </button>
+        )}
       </main>
     </div>
   );
