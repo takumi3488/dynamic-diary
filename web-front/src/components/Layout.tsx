@@ -8,7 +8,7 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   const customToken = router.query.customToken as string | undefined;
   useEffect(() => {
     if (customToken) signInWithCustomToken(auth, customToken);
-  }, [router.isReady]);
+  }, [router.isReady, customToken]);
   return <>{children}</>;
 };
 
