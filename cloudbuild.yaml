@@ -1,8 +1,11 @@
 steps:
   # テスト
-  - name: docker/compose
+  - id: docker-compose-up
+    name: gcr.io/$PROJECT_ID/docker-compose
+    args: ["up", "-d"]
+  - name: gcr.io/$PROJECT_ID/docker-compose
     args: ["run", "server", "go", "test", "./..."]
-  - name: docker/compose
+  - name: gcr.io/$PROJECT_ID/docker-compose
     waitFor:
       - docker-compose-up
     args: ["up", "playwright"]
