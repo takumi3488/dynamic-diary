@@ -1,0 +1,56 @@
+steps:
+  # テスト
+  - name: docker/compose
+    args: ["run", "server", "go", "test", "./..."]
+  - name: docker/compose
+    waitFor:
+      - docker-compose-up
+    args: ["up", "playwright"]
+
+  # サーバー
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - "build"
+      - "-t"
+      - "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"
+      - "-f"
+      - "server"
+      - "."
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"]
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      - "run"
+      - "deploy"
+      - "dynamic-diary-server"
+      - "--image"
+      - "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"
+      - "--region"
+      - "$LOCATION"
+
+  # フロント
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - "build"
+      - "-t"
+      - "gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"
+      - "-f"
+      - "web-front"
+      - "."
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"]
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      - "run"
+      - "deploy"
+      - "dynamic-diary-web-front"
+      - "--image"
+      - "gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"
+      - "--region"
+      - "$LOCATION"
+
+images:
+  - "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"
+  - "gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"

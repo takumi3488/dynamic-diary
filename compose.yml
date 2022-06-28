@@ -44,3 +44,8 @@ services:
       - web-front
     env_file:
       - playwright/.env
+
+networks:
+  defautl:
+    external:
+      name: cloudbuild
