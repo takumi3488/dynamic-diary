@@ -38,8 +38,3 @@ services:
       - ./playwright:/app
     depends_on:
       - web-front
-
-networks:
-  defautl:
-    external:
-      name: cloudbuild
