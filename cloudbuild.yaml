@@ -1,14 +1,9 @@
 steps:
   # テスト
   - name: gcr.io/$PROJECT_ID/docker-compose
-    id: docker-compose-up
-    args: ["up", "-d"]
+    args: ["run", "--env-file=.cloudbuild.env", "server", "go", "test", "./..."]
   - name: gcr.io/$PROJECT_ID/docker-compose
-    args: ["run", "server", "go", "test", "./..."]
-  - name: gcr.io/$PROJECT_ID/docker-compose
-    waitFor:
-      - docker-compose-up
-    args: ["up", "playwright"]
+    args: ["run", "--env-file=.cloudbuild.env", "playwright"]
 
   # サーバー
   - name: gcr.io/cloud-builders/docker
