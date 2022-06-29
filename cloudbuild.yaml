@@ -1,9 +1,20 @@
 steps:
   # テスト
   - name: gcr.io/$PROJECT_ID/docker-compose
-    args: ["run", "--env-file=.cloudbuild.env", "server", "go", "test", "./..."]
+    args:
+      [
+        "-f",
+        "compose.yml",
+        "-f",
+        "compose.prod.yml",
+        "run",
+        "server",
+        "go",
+        "test",
+        "./...",
+      ]
   - name: gcr.io/$PROJECT_ID/docker-compose
-    args: ["run", "--env-file=.cloudbuild.env", "playwright"]
+    args: ["-f", "compose.yml", "-f", "compose.prod.yml", "run", "playwright"]
 
   # サーバー
   - name: gcr.io/cloud-builders/docker

@@ -1,0 +1,13 @@
+services:
+  server:
+    env_file:
+      - .cloudbuild.env
+
+  web-front:
+    env_file:
+      - .cloudbuild.env
+
+  playwright:
+    env_file:
+      - .cloudbuild.env
+      
