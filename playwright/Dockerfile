@@ -3,6 +3,6 @@ FROM mcr.microsoft.com/playwright:v1.22.0-focal
 WORKDIR /app
 
 COPY . .
-RUN curl --compressed -o- -L https://yarnpkg.com/install.sh | bash && yarn
+RUN yarn
 
-CMD ["yarn", "test"]
+CMD ["npx", "playwright", "test"]
