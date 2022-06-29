@@ -1,7 +1,7 @@
 FROM node:18.4.0-bullseye-slim AS dev
 WORKDIR /app
 COPY . .
-RUN yarn && yarn playwright install
+RUN yarn
 CMD ["yarn", "dev"]
 
 
