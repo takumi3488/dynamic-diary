@@ -14,7 +14,7 @@ steps:
         "./...",
       ]
   - name: gcr.io/$PROJECT_ID/docker-compose
-    args: ["-f", "compose.yml", "-f", "compose.prod.yml", "run", "playwright"]
+    args: ["-f", "compose.yml", "-f", "compose.prod.yml", "up", "playwright"]
 
   # サーバー
   - name: gcr.io/cloud-builders/docker
