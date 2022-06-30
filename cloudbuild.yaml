@@ -2,17 +2,15 @@ steps:
   # テスト
   - name: gcr.io/$PROJECT_ID/docker-compose
     args:
-      [
-        "-f",
-        "compose.yml",
-        "-f",
-        "compose.prod.yml",
-        "run",
-        "server",
-        "go",
-        "test",
-        "./...",
-      ]
+      - "-f"
+      - "compose.yml"
+      - "-f"
+      - "compose.prod.yml"
+      - "run"
+      - "server"
+      - "go"
+      - "test"
+      - "./..."
   - name: gcr.io/$PROJECT_ID/docker-compose
     args: ["-f", "compose.yml", "-f", "compose.prod.yml", "up", "playwright"]
 
