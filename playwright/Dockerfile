@@ -1,8 +1,8 @@
-FROM mcr.microsoft.com/playwright:v1.24.0-focal
+FROM mcr.microsoft.com/playwright:v1.23.1-focal
 
 WORKDIR /app
 
 COPY . .
-RUN npm i playwright @playwright/test
+RUN npm ci
 
 CMD ["npm", "run", "test"]
