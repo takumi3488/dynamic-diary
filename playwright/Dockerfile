@@ -3,6 +3,6 @@ FROM mcr.microsoft.com/playwright:v1.23.1-focal
 WORKDIR /app
 
 COPY . .
-RUN npm ci
+RUN yarn
 
-CMD ["npm", "run", "test"]
+CMD ["yarn", "test"]
