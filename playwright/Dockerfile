@@ -5,4 +5,4 @@ WORKDIR /app
 COPY . .
 RUN yarn
 
-CMD ["yarn", "test"]
+CMD ["npx", "playwright", "test"]
