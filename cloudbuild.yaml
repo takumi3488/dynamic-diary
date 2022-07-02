@@ -5,7 +5,7 @@ steps:
       - "-f"
       - "compose.yml"
       - "-f"
-      - "compose.prod.yml"
+      - "compose.test.yml"
       - "up"
       - "server"
   - name: gcr.io/$PROJECT_ID/docker-compose
@@ -13,7 +13,7 @@ steps:
       - "-f"
       - "compose.yml"
       - "-f"
-      - "compose.prod.yml"
+      - "compose.test.yml"
       - "up"
       - "web-front"
 
