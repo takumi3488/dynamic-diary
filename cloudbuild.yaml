@@ -7,7 +7,7 @@ steps:
       - "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"
       - "-f"
       - "./server/Dockerfile"
-      - "."
+      - "./server"
   - name: "gcr.io/cloud-builders/docker"
     args:
       - "run"
@@ -37,7 +37,7 @@ steps:
       - "gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"
       - "-f"
       - "./web-front/Dockerfile"
-      - "."
+      - "./web-front"
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"]
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
