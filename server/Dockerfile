@@ -12,6 +12,7 @@ FROM golang:1.18.3-bullseye-slim as builder
 
 WORKDIR /go/src/app
 
+RUN apt-get update && apt-get -y install git
 COPY . .
 RUN go mod tidy
 
