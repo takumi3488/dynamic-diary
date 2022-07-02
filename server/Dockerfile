@@ -15,7 +15,6 @@ WORKDIR /go/src/app
 COPY . .
 RUN go mod tidy
 
-COPY . .
 RUN CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -o server
 
 
