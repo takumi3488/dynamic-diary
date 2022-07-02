@@ -6,8 +6,3 @@ services:
   web-front:
     env_file:
       - .cloudbuild.env
-
-  playwright:
-    env_file:
-      - .cloudbuild.env
-      

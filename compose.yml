@@ -31,10 +31,3 @@ services:
       - 3000:3000
     depends_on:
       - server
-
-  playwright:
-    build: playwright
-    volumes:
-      - ./playwright:/app
-    depends_on:
-      - web-front
