@@ -1,4 +1,22 @@
 steps:
+  # サーバーテスト
+  - name: gcr.io/$PROJECT_ID/docker-compose
+    args:
+      - "-f"
+      - "compose.yml"
+      - "-f"
+      - "compose.prod.yml"
+      - "up"
+      - "server"
+  - name: gcr.io/$PROJECT_ID/docker-compose
+    args:
+      - "-f"
+      - "compose.yml"
+      - "-f"
+      - "compose.prod.yml"
+      - "up"
+      - "web-front"
+
   # サーバー
   - name: gcr.io/cloud-builders/docker
     args:
@@ -8,14 +26,6 @@ steps:
       - "-f"
       - "./server/Dockerfile"
       - "./server"
-  - name: "gcr.io/cloud-builders/docker"
-    args:
-      - "run"
-      - "-t"
-      - "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"
-      - "go"
-      - "test"
-      - "./..."
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"]
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
