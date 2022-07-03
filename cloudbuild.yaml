@@ -1,28 +1,4 @@
 steps:
-  # サーバーテスト
-  - name: gcr.io/$PROJECT_ID/docker-compose
-    args:
-      - "-f"
-      - "compose.yml"
-      - "-f"
-      - "compose.test.yml"
-      - "up"
-      - "server"
-    id: "server-test"
-
-  # フロントテスト
-  - name: gcr.io/$PROJECT_ID/docker-compose
-    args:
-      - "-f"
-      - "compose.yml"
-      - "-f"
-      - "compose.test.yml"
-      - "up"
-      - "web-front"
-    id: "web-front-test"
-    waitFor:
-      - "-"
-
   # サーバー
   - name: gcr.io/cloud-builders/docker
     args:
@@ -34,8 +10,6 @@ steps:
       - "--target"
       - "prod"
       - "./server"
-    waitFor:
-      - "server-test"
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"]
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
@@ -79,7 +53,7 @@ steps:
       - "NEXT_PUBLIC_MEASUREMENTID=$_NEXT_PUBLIC_MEASUREMENTID"
       - "./web-front"
     waitFor:
-      - "web-front-test"
+      - "-"
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"]
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
