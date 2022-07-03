@@ -20,6 +20,8 @@ steps:
       - "up"
       - "web-front"
     id: "web-front-test"
+    waitFor:
+      - "-"
 
   # サーバー
   - name: gcr.io/cloud-builders/docker
@@ -32,6 +34,8 @@ steps:
       - "--target"
       - "prod"
       - "./server"
+    waitFor:
+      - "server-test"
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"]
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
