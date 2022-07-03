@@ -30,7 +30,7 @@ FROM node:18.4.0-bullseye-slim AS runner
 ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
+# COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/.next/standalone ./
 CMD ["node", "server.js"]
