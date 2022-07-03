@@ -50,6 +50,7 @@ steps:
       - "-f"
       - "./web-front/Dockerfile"
       - "--target"
+      - "runner"
       - "--build-arg"
       - "GRAPHQL_ENDPOINT=$_GRAPHQL_ENDPOINT"
       - "--build-arg"
@@ -68,7 +69,6 @@ steps:
       - "NEXT_PUBLIC_APPID=$_NEXT_PUBLIC_APPID"
       - "--build-arg"
       - "NEXT_PUBLIC_MEASUREMENTID=$_NEXT_PUBLIC_MEASUREMENTID"
-      - "runner"
       - "./web-front"
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"]
