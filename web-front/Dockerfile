@@ -1,10 +1,3 @@
-FROM node:18.4.0-bullseye-slim AS dev
-WORKDIR /app
-COPY . .
-RUN yarn
-CMD ["yarn", "dev"]
-
-
 FROM node:18.4.0-bullseye-slim AS builder
 ARG GRAPHQL_ENDPOINT
 ARG NEXT_PUBLIC_GRAPHQL_ENDPOINT
@@ -41,3 +34,10 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/.next/standalone ./
 CMD ["node", "server.js"]
+
+
+FROM node:18.4.0-bullseye-slim AS dev
+WORKDIR /app
+COPY . .
+RUN yarn
+CMD ["yarn", "dev"]
