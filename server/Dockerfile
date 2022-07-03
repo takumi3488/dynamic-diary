@@ -2,7 +2,7 @@ FROM golang:1.18.3-alpine as dev
 
 WORKDIR /go/src/app
 
-RUN apk update && apk add git
+RUN apk update && apk add git gcc musl-dev
 COPY . .
 RUN go mod tidy
 
@@ -13,7 +13,7 @@ FROM golang:1.18.3-alpine as builder
 
 WORKDIR /go/src/app
 
-RUN apk update && apk add git
+RUN apk update && apk add git gcc musl-dev
 COPY . .
 RUN go mod tidy
 
