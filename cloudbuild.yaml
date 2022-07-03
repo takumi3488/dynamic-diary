@@ -8,6 +8,8 @@ steps:
       - "compose.test.yml"
       - "up"
       - "server"
+
+  # フロントテスト
   - name: gcr.io/$PROJECT_ID/docker-compose
     args:
       - "-f"
