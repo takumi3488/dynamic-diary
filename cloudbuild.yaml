@@ -64,7 +64,3 @@ steps:
     waitFor:
       - "build web-front"
     id: "deploy web-front to cloud run"
-
-images:
-  - gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA
-  - gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA
