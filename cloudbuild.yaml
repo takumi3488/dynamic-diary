@@ -1,15 +1,12 @@
 steps:
   # サーバー
-  - name: gcr.io/cloud-builders/docker
+  - name: gcr.io/kaniko-project/executor:latest
     args:
-      - "build"
-      - "-t"
-      - "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"
-      - "-f"
-      - "./server/Dockerfile"
-      - "--target"
-      - "prod"
-      - "./server"
+      - "--destination=gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"
+      - "--cache=true"
+      - "--dockerfile=./server/Dockerfile"
+      - "--target=prod"
+      - "--context=./server"
     id: "build server"
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"]
@@ -33,13 +30,11 @@ steps:
   # フロント
   - name: gcr.io/cloud-builders/docker
     args:
-      - "build"
-      - "-t"
-      - "gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"
-      - "-f"
-      - "./web-front/Dockerfile"
-      - "--target"
-      - "runner"
+      - "--destination=gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"
+      - "--cache=true"
+      - "--dockerfile=./web-front/Dockerfile"
+      - "--target=runner"
+      - "--context=./web-front"
       - "--build-arg"
       - "GRAPHQL_ENDPOINT=$_GRAPHQL_ENDPOINT"
       - "--build-arg"
@@ -58,7 +53,6 @@ steps:
       - "NEXT_PUBLIC_APPID=$_NEXT_PUBLIC_APPID"
       - "--build-arg"
       - "NEXT_PUBLIC_MEASUREMENTID=$_NEXT_PUBLIC_MEASUREMENTID"
-      - "./web-front"
     waitFor:
       - "-"
     id: "build web-front"
