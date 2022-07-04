@@ -2,27 +2,29 @@ steps:
   # サーバー
   - name: gcr.io/kaniko-project/executor:latest
     args:
-      - "--destination=gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"
-      - "--cache=true"
-      - "--dockerfile=./server/Dockerfile"
-      - "--target=prod"
-      - "--context=./server"
+      - --destination=gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA
+      - --cache=true
+      - --dockerfile=./server/Dockerfile
+      - --target=prod
+      - --context=./server
     id: "build server"
-  - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"]
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA
     id: "push server"
     waitFor:
       - "build server"
-  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: gcloud
     args:
-      - "run"
-      - "deploy"
-      - "dynamic-diary-server"
-      - "--image"
-      - "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"
-      - "--region"
-      - "asia-northeast1"
+      - run
+      - deploy
+      - dynamic-diary-server
+      - --image
+      - gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA
+      - --region
+      - asia-northeast1
     id: "deploy server to cloud run"
     waitFor:
       - "push server"
@@ -30,51 +32,53 @@ steps:
   # フロント
   - name: gcr.io/cloud-builders/docker
     args:
-      - "--destination=gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"
-      - "--cache=true"
-      - "--dockerfile=./web-front/Dockerfile"
-      - "--target=runner"
-      - "--context=./web-front"
-      - "--build-arg"
-      - "GRAPHQL_ENDPOINT=$_GRAPHQL_ENDPOINT"
-      - "--build-arg"
-      - "NEXT_PUBLIC_GRAPHQL_ENDPOINT=$_NEXT_PUBLIC_GRAPHQL_ENDPOINT"
-      - "--build-arg"
-      - "NEXT_PUBLIC_APIKEY=$_NEXT_PUBLIC_APIKEY"
-      - "--build-arg"
-      - "NEXT_PUBLIC_AUTHDOMAIN=$_NEXT_PUBLIC_AUTHDOMAIN"
-      - "--build-arg"
-      - "NEXT_PUBLIC_PROJECTID=$_NEXT_PUBLIC_PROJECTID"
-      - "--build-arg"
-      - "NEXT_PUBLIC_STORAGEBUCKET=$_NEXT_PUBLIC_STORAGEBUCKET"
-      - "--build-arg"
-      - "NEXT_PUBLIC_MESSAGINGSENDERID=$_NEXT_PUBLIC_MESSAGINGSENDERID"
-      - "--build-arg"
-      - "NEXT_PUBLIC_APPID=$_NEXT_PUBLIC_APPID"
-      - "--build-arg"
-      - "NEXT_PUBLIC_MEASUREMENTID=$_NEXT_PUBLIC_MEASUREMENTID"
+      - --destination=gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA
+      - --cache=true
+      - --dockerfile=./web-front/Dockerfile
+      - --target=runner
+      - --context=./web-front
+      - --build-arg
+      - GRAPHQL_ENDPOINT=$_GRAPHQL_ENDPOINT
+      - --build-arg
+      - NEXT_PUBLIC_GRAPHQL_ENDPOINT=$_NEXT_PUBLIC_GRAPHQL_ENDPOINT
+      - --build-arg
+      - NEXT_PUBLIC_APIKEY=$_NEXT_PUBLIC_APIKEY
+      - --build-arg
+      - NEXT_PUBLIC_AUTHDOMAIN=$_NEXT_PUBLIC_AUTHDOMAIN
+      - --build-arg
+      - NEXT_PUBLIC_PROJECTID=$_NEXT_PUBLIC_PROJECTID
+      - --build-arg
+      - NEXT_PUBLIC_STORAGEBUCKET=$_NEXT_PUBLIC_STORAGEBUCKET
+      - --build-arg
+      - NEXT_PUBLIC_MESSAGINGSENDERID=$_NEXT_PUBLIC_MESSAGINGSENDERID
+      - --build-arg
+      - NEXT_PUBLIC_APPID=$_NEXT_PUBLIC_APPID
+      - --build-arg
+      - NEXT_PUBLIC_MEASUREMENTID=$_NEXT_PUBLIC_MEASUREMENTID
     waitFor:
       - "-"
     id: "build web-front"
-  - name: "gcr.io/kaniko-project/executor:latest"
-    args: ["push", "gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"]
+  - name: gcr.io/kaniko-project/executor:latest
+    args: 
+      - push
+      - gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA
     waitFor:
       - "build web-front"
     id: "push web-front"
-  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: gcloud
     args:
-      - "run"
-      - "deploy"
-      - "dynamic-diary-web-front"
-      - "--image"
-      - "gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"
-      - "--region"
-      - "asia-northeast1"
+      - run
+      - deploy
+      - dynamic-diary-web-front
+      - --image
+      - gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA
+      - --region
+      - asia-northeast1
     waitFor:
       - "push web-front"
     id: "deploy web-front to cloud run"
 
 images:
-  - "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"
-  - "gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"
+  - gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA
+  - gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA
