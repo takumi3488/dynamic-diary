@@ -62,8 +62,8 @@ steps:
       - --region
       - asia-northeast1
     waitFor:
-      - "push web-front"
-    id: "build web-front"
+      - "build web-front"
+    id: "deploy web-front to cloud run"
 
 images:
   - gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA
