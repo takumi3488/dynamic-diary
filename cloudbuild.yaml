@@ -10,8 +10,12 @@ steps:
       - "--target"
       - "prod"
       - "./server"
+    id: "build server"
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"]
+    id: "push server"
+    waitFor:
+      - "build server"
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     entrypoint: gcloud
     args:
@@ -22,6 +26,9 @@ steps:
       - "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"
       - "--region"
       - "asia-northeast1"
+    id: "deploy server to cloud run"
+    waitFor:
+      - "push server"
 
   # フロント
   - name: gcr.io/cloud-builders/docker
@@ -54,8 +61,12 @@ steps:
       - "./web-front"
     waitFor:
       - "-"
+    id: "build web-front"
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"]
+    waitFor:
+      - "build web-front"
+    id: "push web-front"
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     entrypoint: gcloud
     args:
@@ -66,6 +77,9 @@ steps:
       - "gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"
       - "--region"
       - "asia-northeast1"
+    waitFor:
+      - "push web-front"
+    id: "deploy web-front to cloud run"
 
 images:
   - "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"
