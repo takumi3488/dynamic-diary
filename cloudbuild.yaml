@@ -70,5 +70,3 @@ steps:
 images:
   - "gcr.io/$PROJECT_ID/dynamic-diary-server:$COMMIT_SHA"
   - "gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA"
-
-timeout: 900s
