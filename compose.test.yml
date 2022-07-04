@@ -1,0 +1,10 @@
+services:
+  server:
+    env_file:
+      - .cloudbuild.env
+    command: go test ./...
+
+  web-front:
+    env_file:
+      - .cloudbuild.env
+    command: yarn test

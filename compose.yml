@@ -20,8 +20,6 @@ services:
       - 8080:8080
     depends_on:
       - mongo
-    env_file:
-      - server/.env
 
   web-front:
     build:
@@ -31,16 +29,3 @@ services:
       - ./web-front:/app
     ports:
       - 3000:3000
-    depends_on:
-      - server
-    env_file:
-      - web-front/.env
-
-  playwright:
-    build: playwright
-    volumes:
-      - ./playwright:/app
-    depends_on:
-      - web-front
-    env_file:
-      - playwright/.env
