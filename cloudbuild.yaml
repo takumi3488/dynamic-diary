@@ -30,7 +30,7 @@ steps:
       - "push server"
 
   # フロント
-  - name: gcr.io/cloud-builders/docker
+  - name: gcr.io/kaniko-project/executor:latest
     args:
       - --destination=gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA
       - --cache=true
@@ -58,7 +58,7 @@ steps:
     waitFor:
       - "-"
     id: "build web-front"
-  - name: gcr.io/kaniko-project/executor:latest
+  - name: gcr.io/cloud-builders/docker
     args: 
       - push
       - gcr.io/$PROJECT_ID/dynamic-diary-web-front:$COMMIT_SHA
