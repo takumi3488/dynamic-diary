@@ -10,6 +10,7 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/rs/cors"
 	"github.com/takumi3488/dynamic-diary/server/auth"
+	"github.com/takumi3488/dynamic-diary/server/db"
 	"github.com/takumi3488/dynamic-diary/server/graph"
 	"github.com/takumi3488/dynamic-diary/server/graph/generated"
 )
@@ -23,7 +24,8 @@ func main() {
 	}
 
 	router := chi.NewRouter()
-	router.Use(auth.Middleware())
+	router.Use(auth.Middleware)
+	router.Use(db.MiddleWare)
 
 	allowed_origins := strings.Split(os.Getenv("ALLOWED_ORIGINS"), ",")
 	router.Use(cors.New(cors.Options{
