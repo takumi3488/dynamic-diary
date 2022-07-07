@@ -1,3 +1,4 @@
 /db
 .env*
 compose.override.yml
+/.vscode
