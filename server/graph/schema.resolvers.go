@@ -17,7 +17,7 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) 
 }
 
 func (r *queryResolver) User(ctx context.Context) (*model.User, error) {
-	return domain.FindUserByContext(ctx)
+	return domain.CurrentUser(ctx)
 }
 
 // Mutation returns generated.MutationResolver implementation.

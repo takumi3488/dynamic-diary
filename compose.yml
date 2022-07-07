@@ -1,17 +1,21 @@
 services:
-  mongo:
-    image: mongo
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-    ports:
-      - 27017:27017
+  firebase:
+    build:
+      context: firebase
     volumes:
-      - /data/db
-      - /data/configdb
+      - ./firebase:/opt/workspace:cached
+    ports:
+      - 9099:9099
+      - 4000:4000
+      - 4400:4400
+      - 4500:4500
+      - 8081:8081
+    environment:
+      USE_LOCAL_BACKEND: 1
+    working_dir: /opt/workspace
 
   server:
-    build: 
+    build:
       context: server
       target: dev
     volumes:
@@ -19,7 +23,7 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - mongo
+      - firebase
 
   web-front:
     build:
