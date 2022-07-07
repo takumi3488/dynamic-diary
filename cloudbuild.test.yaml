@@ -1,5 +1,5 @@
 steps:
-  # サーバーテスト
+  # コンテナ起動
   - name: gcr.io/$PROJECT_ID/docker-compose
     args:
       - "-f"
@@ -7,8 +7,25 @@ steps:
       - "-f"
       - "compose.test.yml"
       - "up"
+      - "--build"
+      - "-d"
+    id: "up"
+
+  # サーバーテスト
+  - name: gcr.io/$PROJECT_ID/docker-compose
+    args:
+      - "-f"
+      - "compose.yml"
+      - "-f"
+      - "compose.test.yml"
+      - "run"
       - "server"
+      - "go"
+      - "test"
+      - "./..."
     id: "server-test"
+    waitFor:
+      - "up"
 
   # フロントテスト
   - name: gcr.io/$PROJECT_ID/docker-compose
@@ -17,8 +34,10 @@ steps:
       - "compose.yml"
       - "-f"
       - "compose.test.yml"
-      - "up"
+      - "run"
       - "web-front"
+      - "yarn"
+      - "test"
     id: "web-front-test"
     waitFor:
-      - "-"
+      - "up"
