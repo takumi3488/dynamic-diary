@@ -23,6 +23,7 @@ func FindOrCreateUser(ctx context.Context, uid string) (*model.User, error) {
 	} else {
 		dsnap.DataTo(&user)
 	}
+	user.ID = uid
 	return user, nil
 }
 

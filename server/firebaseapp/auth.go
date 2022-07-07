@@ -40,7 +40,6 @@ type uidContextKey struct {
 	name string
 }
 
-
 // テスト用UIDをcontextにセット
 func SetUidCtxForTesting(ctx context.Context) context.Context {
 	return context.WithValue(ctx, uidCtxtKey, os.Getenv("FIREBASE_TEST_UID"))
@@ -49,13 +48,22 @@ func SetUidCtxForTesting(ctx context.Context) context.Context {
 // AuthorizationヘッダーにidTokenが含まれていればUIDをcontextに追加する
 func AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// 環境変数FIREBASE_TEST_UIDが存在する場合にはそのUIDを使う
+		uid := os.Getenv("FIREBASE_TEST_UID")
+		if uid != "" {
+			r = r.WithContext(context.WithValue(r.Context(), uidCtxtKey, uid))
+			next.ServeHTTP(w, r)
+			return
+		}
+
 		auth := r.Header.Get("Authorization")
 		if auth == "" {
 			next.ServeHTTP(w, r)
 			return
 		}
 
-		uid, err := GetUID(r.Context(), strings.Split(auth, " ")[1])
+		var err error
+		uid, err = GetUID(r.Context(), strings.Split(auth, " ")[1])
 		if err != nil {
 			next.ServeHTTP(w, r)
 			return

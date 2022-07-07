@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/99designs/gqlgen/graphql/handler"
+	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/go-chi/chi"
 	"github.com/rs/cors"
 	"github.com/takumi3488/dynamic-diary/server/firebaseapp"
@@ -36,6 +37,9 @@ func main() {
 
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
 
+	if os.Getenv("FIREBASE_TEST_UID") != "" {
+		router.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	}
 	router.Handle("/query", srv)
 	log.Printf("Allowed origins are: %s", allowed_origins)
 
