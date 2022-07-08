@@ -13,7 +13,7 @@ func FindOrCreateUser(ctx context.Context, uid string) (*model.User, error) {
 	if !ok {
 		return nil, errors.InternalError()
 	}
-	var user *model.User
+	user := &model.User{}
 	dsnap, err := db.Collection("users").Doc(uid).Get(ctx)
 	if err != nil {
 		_, err := db.Collection("users").Doc(uid).Set(ctx, &model.User{})
