@@ -9,7 +9,7 @@ services:
       - 4000:4000
       - 4400:4400
       - 4500:4500
-      - 8081:8081
+      - 8082:8082
     environment:
       USE_LOCAL_BACKEND: 1
     working_dir: /opt/workspace
