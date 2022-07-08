@@ -1,4 +1,12 @@
 services:
+  firebase:
+    ports:
+      - 9099
+      - 4000
+      - 4400
+      - 4500
+      - 8081
+
   server:
     env_file:
       - .cloudbuild.env
