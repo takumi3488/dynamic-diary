@@ -1,5 +1,5 @@
 import { getApps, initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { connectAuthEmulator, getAuth } from "firebase/auth";
 import { firebaseConfig } from "./firebaseConfig";
 
 export const app = getApps().length
@@ -7,3 +7,9 @@ export const app = getApps().length
   : initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
+
+if (process.env.NODE_ENV !== "production")
+  connectAuthEmulator(
+    auth,
+    process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_HOST as string
+  );
