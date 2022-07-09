@@ -5,8 +5,11 @@ steps:
       - run
       - -e
       - GOOGLE_CREDENTIAL=$_GOOGLE_CREDENTIAL
+      - -e
       - FIREBASE_TEST_UID=$_FIREBASE_TEST_UID
+      - -e
       - FIRESTORE_EMULATOR_HOST=$_FIRESTORE_EMULATOR_HOST
+      - e
       - FIREBASE_AUTH_EMULATOR_HOST=$_FIREBASE_AUTH_EMULATOR_HOST
       - server
       - go
