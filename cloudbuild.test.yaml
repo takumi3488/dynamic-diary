@@ -2,23 +2,28 @@ steps:
   # サーバーテスト
   - name: gcr.io/$PROJECT_ID/docker-compose
     args:
-      - "-f"
-      - "compose.yml"
-      - "-f"
-      - "compose.test.yml"
-      - "up"
-      - "server"
-    id: "server-test"
+      - run
+      - -e
+      - GOOGLE_CREDENTIAL=$_GOOGLE_CREDENTIAL
+      - -e
+      - FIREBASE_TEST_UID=$_FIREBASE_TEST_UID
+      - -e
+      - FIRESTORE_EMULATOR_HOST=$_FIRESTORE_EMULATOR_HOST
+      - -e
+      - FIREBASE_AUTH_EMULATOR_HOST=$_FIREBASE_AUTH_EMULATOR_HOST
+      - server
+      - go
+      - test
+      - ./...
+    id: server-test
 
   # フロントテスト
   - name: gcr.io/$PROJECT_ID/docker-compose
     args:
-      - "-f"
-      - "compose.yml"
-      - "-f"
-      - "compose.test.yml"
-      - "up"
-      - "web-front"
-    id: "web-front-test"
+      - run
+      - web-front
+      - yarn
+      - test
+    id: web-front-test
     waitFor:
       - "-"

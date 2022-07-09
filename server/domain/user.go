@@ -3,16 +3,34 @@ package domain
 import (
 	"context"
 
-	"github.com/takumi3488/dynamic-diary/server/auth"
 	"github.com/takumi3488/dynamic-diary/server/errors"
+	"github.com/takumi3488/dynamic-diary/server/firebaseapp"
 	"github.com/takumi3488/dynamic-diary/server/graph/model"
 )
 
-func FindUserByContext(ctx context.Context) (*model.User,error) {
-	uid, ok := auth.ForContext(ctx)
+func FindOrCreateUser(ctx context.Context, uid string) (*model.User, error) {
+	db, ok := firebaseapp.DbFromContext(ctx)
+	if !ok {
+		return nil, errors.InternalError()
+	}
+	user := &model.User{}
+	dsnap, err := db.Collection("users").Doc(uid).Get(ctx)
+	if err != nil {
+		_, err := db.Collection("users").Doc(uid).Set(ctx, &model.User{})
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		dsnap.DataTo(&user)
+	}
+	user.ID = uid
+	return user, nil
+}
+
+func CurrentUser(ctx context.Context) (*model.User, error) {
+	uid, ok := firebaseapp.UIDFromContext(ctx)
 	if !ok {
 		return nil, errors.AuthenticationError()
 	}
-	user := &model.User{ID: uid, Name: ""}
-	return user,nil
+	return FindOrCreateUser(ctx, uid)
 }
