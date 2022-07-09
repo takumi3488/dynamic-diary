@@ -1,12 +1,12 @@
 type User {
   id: String!
   name: String!
-  posts: [Post]!
-  comments: [Comment]!
-  post_favorites: [PostFavorite]!
-  comment_favorites: [CommentFavorite]!
-  favorite_posts: [Post]!
-  favorite_comments: [Comment]!
+  posts: [Post!]!
+  comments: [Comment!]!
+  post_favorites: [PostFavorite!]!
+  comment_favorites: [CommentFavorite!]!
+  favorite_posts: [Post!]!
+  favorite_comments: [Comment!]!
 }
 
 type Post {
@@ -15,9 +15,9 @@ type Post {
   user: User!
   title: String!
   is_draft: Boolean!
-  contents: [Content]!
-  comments: [Comment]!
-  favorite_users: [User]!
+  contents: [Content!]!
+  comments: [Comment!]!
+  favorite_users: [User!]!
 }
 
 type PostFavorite {
@@ -31,7 +31,7 @@ type PostFavorite {
 type Content {
   id: String!
   post_id: String!
-  post: [Post]!
+  post: [Post!]!
   effect_id: String!
   effect: Effect!
   title: String!
