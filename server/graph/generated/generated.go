@@ -515,12 +515,12 @@ var sources = []*ast.Source{
 	{Name: "../schema.graphqls", Input: `type User {
   id: String!
   name: String!
-  posts: [Post]!
-  comments: [Comment]!
-  post_favorites: [PostFavorite]!
-  comment_favorites: [CommentFavorite]!
-  favorite_posts: [Post]!
-  favorite_comments: [Comment]!
+  posts: [Post!]!
+  comments: [Comment!]!
+  post_favorites: [PostFavorite!]!
+  comment_favorites: [CommentFavorite!]!
+  favorite_posts: [Post!]!
+  favorite_comments: [Comment!]!
 }
 
 type Post {
@@ -529,9 +529,9 @@ type Post {
   user: User!
   title: String!
   is_draft: Boolean!
-  contents: [Content]!
-  comments: [Comment]!
-  favorite_users: [User]!
+  contents: [Content!]!
+  comments: [Comment!]!
+  favorite_users: [User!]!
 }
 
 type PostFavorite {
@@ -545,7 +545,7 @@ type PostFavorite {
 type Content {
   id: String!
   post_id: String!
-  post: [Post]!
+  post: [Post!]!
   effect_id: String!
   effect: Effect!
   title: String!
@@ -1324,7 +1324,7 @@ func (ec *executionContext) _Content_post(ctx context.Context, field graphql.Col
 	}
 	res := resTmp.([]*model.Post)
 	fc.Result = res
-	return ec.marshalNPost2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPost(ctx, field.Selections, res)
+	return ec.marshalNPost2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPostᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Content_post(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1967,7 +1967,7 @@ func (ec *executionContext) _Post_contents(ctx context.Context, field graphql.Co
 	}
 	res := resTmp.([]*model.Content)
 	fc.Result = res
-	return ec.marshalNContent2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐContent(ctx, field.Selections, res)
+	return ec.marshalNContent2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐContentᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Post_contents(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2027,7 +2027,7 @@ func (ec *executionContext) _Post_comments(ctx context.Context, field graphql.Co
 	}
 	res := resTmp.([]*model.Comment)
 	fc.Result = res
-	return ec.marshalNComment2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐComment(ctx, field.Selections, res)
+	return ec.marshalNComment2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐCommentᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Post_comments(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2085,7 +2085,7 @@ func (ec *executionContext) _Post_favorite_users(ctx context.Context, field grap
 	}
 	res := resTmp.([]*model.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐUserᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Post_favorite_users(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2679,7 +2679,7 @@ func (ec *executionContext) _User_posts(ctx context.Context, field graphql.Colle
 	}
 	res := resTmp.([]*model.Post)
 	fc.Result = res
-	return ec.marshalNPost2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPost(ctx, field.Selections, res)
+	return ec.marshalNPost2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPostᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_User_posts(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2741,7 +2741,7 @@ func (ec *executionContext) _User_comments(ctx context.Context, field graphql.Co
 	}
 	res := resTmp.([]*model.Comment)
 	fc.Result = res
-	return ec.marshalNComment2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐComment(ctx, field.Selections, res)
+	return ec.marshalNComment2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐCommentᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_User_comments(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2799,7 +2799,7 @@ func (ec *executionContext) _User_post_favorites(ctx context.Context, field grap
 	}
 	res := resTmp.([]*model.PostFavorite)
 	fc.Result = res
-	return ec.marshalNPostFavorite2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPostFavorite(ctx, field.Selections, res)
+	return ec.marshalNPostFavorite2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPostFavoriteᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_User_post_favorites(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2855,7 +2855,7 @@ func (ec *executionContext) _User_comment_favorites(ctx context.Context, field g
 	}
 	res := resTmp.([]*model.CommentFavorite)
 	fc.Result = res
-	return ec.marshalNCommentFavorite2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐCommentFavorite(ctx, field.Selections, res)
+	return ec.marshalNCommentFavorite2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐCommentFavoriteᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_User_comment_favorites(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2911,7 +2911,7 @@ func (ec *executionContext) _User_favorite_posts(ctx context.Context, field grap
 	}
 	res := resTmp.([]*model.Post)
 	fc.Result = res
-	return ec.marshalNPost2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPost(ctx, field.Selections, res)
+	return ec.marshalNPost2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPostᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_User_favorite_posts(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2973,7 +2973,7 @@ func (ec *executionContext) _User_favorite_comments(ctx context.Context, field g
 	}
 	res := resTmp.([]*model.Comment)
 	fc.Result = res
-	return ec.marshalNComment2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐComment(ctx, field.Selections, res)
+	return ec.marshalNComment2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐCommentᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_User_favorite_comments(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -5677,7 +5677,7 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) marshalNComment2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐComment(ctx context.Context, sel ast.SelectionSet, v []*model.Comment) graphql.Marshaler {
+func (ec *executionContext) marshalNComment2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐCommentᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Comment) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -5701,7 +5701,7 @@ func (ec *executionContext) marshalNComment2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdy
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOComment2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐComment(ctx, sel, v[i])
+			ret[i] = ec.marshalNComment2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐComment(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -5711,11 +5711,27 @@ func (ec *executionContext) marshalNComment2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdy
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
 
 	return ret
 }
 
-func (ec *executionContext) marshalNCommentFavorite2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐCommentFavorite(ctx context.Context, sel ast.SelectionSet, v []*model.CommentFavorite) graphql.Marshaler {
+func (ec *executionContext) marshalNComment2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐComment(ctx context.Context, sel ast.SelectionSet, v *model.Comment) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._Comment(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalNCommentFavorite2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐCommentFavoriteᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.CommentFavorite) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -5739,7 +5755,7 @@ func (ec *executionContext) marshalNCommentFavorite2ᚕᚖgithubᚗcomᚋtakumi3
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOCommentFavorite2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐCommentFavorite(ctx, sel, v[i])
+			ret[i] = ec.marshalNCommentFavorite2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐCommentFavorite(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -5749,11 +5765,27 @@ func (ec *executionContext) marshalNCommentFavorite2ᚕᚖgithubᚗcomᚋtakumi3
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
 
 	return ret
 }
 
-func (ec *executionContext) marshalNContent2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐContent(ctx context.Context, sel ast.SelectionSet, v []*model.Content) graphql.Marshaler {
+func (ec *executionContext) marshalNCommentFavorite2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐCommentFavorite(ctx context.Context, sel ast.SelectionSet, v *model.CommentFavorite) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._CommentFavorite(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalNContent2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐContentᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Content) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -5777,7 +5809,7 @@ func (ec *executionContext) marshalNContent2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdy
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOContent2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐContent(ctx, sel, v[i])
+			ret[i] = ec.marshalNContent2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐContent(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -5788,7 +5820,23 @@ func (ec *executionContext) marshalNContent2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdy
 	}
 	wg.Wait()
 
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
+}
+
+func (ec *executionContext) marshalNContent2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐContent(ctx context.Context, sel ast.SelectionSet, v *model.Content) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._Content(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalNEffect2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐEffect(ctx context.Context, sel ast.SelectionSet, v *model.Effect) graphql.Marshaler {
@@ -5806,7 +5854,7 @@ func (ec *executionContext) unmarshalNNewUser2githubᚗcomᚋtakumi3488ᚋdynami
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNPost2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPost(ctx context.Context, sel ast.SelectionSet, v []*model.Post) graphql.Marshaler {
+func (ec *executionContext) marshalNPost2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPostᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Post) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -5830,7 +5878,7 @@ func (ec *executionContext) marshalNPost2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynam
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOPost2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPost(ctx, sel, v[i])
+			ret[i] = ec.marshalNPost2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPost(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -5840,6 +5888,12 @@ func (ec *executionContext) marshalNPost2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynam
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
 
 	return ret
 }
@@ -5854,7 +5908,7 @@ func (ec *executionContext) marshalNPost2ᚖgithubᚗcomᚋtakumi3488ᚋdynamic�
 	return ec._Post(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNPostFavorite2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPostFavorite(ctx context.Context, sel ast.SelectionSet, v []*model.PostFavorite) graphql.Marshaler {
+func (ec *executionContext) marshalNPostFavorite2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPostFavoriteᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.PostFavorite) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -5878,7 +5932,7 @@ func (ec *executionContext) marshalNPostFavorite2ᚕᚖgithubᚗcomᚋtakumi3488
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOPostFavorite2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPostFavorite(ctx, sel, v[i])
+			ret[i] = ec.marshalNPostFavorite2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPostFavorite(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -5889,7 +5943,23 @@ func (ec *executionContext) marshalNPostFavorite2ᚕᚖgithubᚗcomᚋtakumi3488
 	}
 	wg.Wait()
 
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
+}
+
+func (ec *executionContext) marshalNPostFavorite2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPostFavorite(ctx context.Context, sel ast.SelectionSet, v *model.PostFavorite) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._PostFavorite(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNString2string(ctx context.Context, v interface{}) (string, error) {
@@ -5911,7 +5981,7 @@ func (ec *executionContext) marshalNUser2githubᚗcomᚋtakumi3488ᚋdynamicᚑd
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v []*model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.User) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -5935,7 +6005,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynam
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOUser2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐUser(ctx, sel, v[i])
+			ret[i] = ec.marshalNUser2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐUser(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -5945,6 +6015,12 @@ func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋtakumi3488ᚋdynam
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
 
 	return ret
 }
@@ -6245,32 +6321,11 @@ func (ec *executionContext) marshalOComment2ᚖgithubᚗcomᚋtakumi3488ᚋdynam
 	return ec._Comment(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOCommentFavorite2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐCommentFavorite(ctx context.Context, sel ast.SelectionSet, v *model.CommentFavorite) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._CommentFavorite(ctx, sel, v)
-}
-
-func (ec *executionContext) marshalOContent2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐContent(ctx context.Context, sel ast.SelectionSet, v *model.Content) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._Content(ctx, sel, v)
-}
-
 func (ec *executionContext) marshalOPost2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPost(ctx context.Context, sel ast.SelectionSet, v *model.Post) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Post(ctx, sel, v)
-}
-
-func (ec *executionContext) marshalOPostFavorite2ᚖgithubᚗcomᚋtakumi3488ᚋdynamicᚑdiaryᚋserverᚋgraphᚋmodelᚐPostFavorite(ctx context.Context, sel ast.SelectionSet, v *model.PostFavorite) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._PostFavorite(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalOString2ᚖstring(ctx context.Context, v interface{}) (*string, error) {
