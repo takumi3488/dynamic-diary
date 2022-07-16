@@ -1,10 +1,14 @@
-import { signInWithCustomToken } from "firebase/auth";
-import { useRouter } from "next/router";
-import React, { FC, ReactNode, useEffect } from "react";
-import { auth } from "../utils/firebase/firebase";
+import { Box } from "@mui/material";
+import React, { FC, ReactNode } from "react";
+import Header from "./Header";
 
 const Layout: FC<{ children: ReactNode }> = ({ children }) => {
-  return <>{children}</>;
+  return (
+    <Box style={{ width: "100vw", display: "flex", flexDirection: "column" }}>
+      <Header />
+      {children}
+    </Box>
+  );
 };
 
 export default Layout;

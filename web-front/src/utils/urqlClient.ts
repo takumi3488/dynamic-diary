@@ -7,11 +7,11 @@ import {
 } from "urql";
 import { AuthConfig, authExchange } from "@urql/exchange-auth";
 import { IdTokenResult } from "firebase/auth";
-import { auth } from "./firebase/firebase";
+import { authClient } from "./firebase/firebase";
 
 const getTokenReuslt = (): Promise<IdTokenResult | undefined> => {
   return new Promise((resolve) => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = authClient().onAuthStateChanged((user) => {
       resolve(user?.getIdTokenResult());
     });
     unsubscribe();
