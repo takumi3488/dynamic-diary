@@ -27,3 +27,5 @@ steps:
     id: web-front-test
     waitFor:
       - "-"
+
+timeout: 1200s
